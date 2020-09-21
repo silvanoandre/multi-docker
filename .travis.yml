@@ -4,7 +4,7 @@ services:
 before-install:
   - docker build -t sapm/react-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run sapm/react-test npm test --coverage
+  - docker run sapm/react-test npm test -- --coverage
 after_success:
   - docker build -t sapm/multi-client ./client
   - docker build -t sapm/multi-ngnix ./nginx
