@@ -10,7 +10,7 @@ after_success:
   - docker build -t sapm/multi-ngnix ./nginx
   - docker build -t sapm/multi-server ./server
   - docker build -t sapm/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER-ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push sapm/multi-client
   - docker push sapm/multi-ngnix
   - docker push sapm/multi-server
