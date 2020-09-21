@@ -1,0 +1,17 @@
+sudo: required
+services:
+  - docker
+before-install:
+  - docker build -t sapm/react-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run sapm/react-test npm test --coverage
+after_success:
+  - docker build -t sapm/multi-client ./client
+  - docker build -t sapm/multi-ngnix ./nginx
+  - docker build -t sapm/multi-server ./server
+  - docker build -t sapm/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER-ID" --password-stdin
+  - docker push sapm/multi-client
+  - docker push sapm/multi-ngnix
+  - docker push sapm/multi-server
+  - docker push sapm/multi-worker
