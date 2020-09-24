@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "ContainerDefinitions":[
+        {
+            "name":"client",
+            "image":"sapm/multi-client",
+            "hostname":"client",
+            "essential":false
+        },
+        {
+            "name":"server",
+            "image":"sapm/multi-server",
+            "hostname":"api",
+            "essential":false
+        },
+        {
+            "name":"worker",
+            "image":"sapm/multi-worker",
+            "hostname":"worker",
+            "essential":false
+        },
+        {
+            "name":"nginx",
+            "image":"sapm/multi-ngnix",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings":[
+                {
+                    "hostPort": 80,
+                    "containerPort":80
+                }
+            ],
+            "links":["client","server"]
+
+
+        }
+    ]
+}
